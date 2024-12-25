@@ -1,290 +1,95 @@
+Whale Sound Classification Project
+
+This project focuses on classifying whale sounds from different species using machine learning techniques. Initially, the goal was to understand the basic patterns within a single whale audio sample. This descriptive analysis provided valuable insights into the structure of whale vocalizations. Building on this foundational analysis, we further explored the sounds of three whale species using randomly sampled data from the Watkins Marine Mammal Sound Database. Specifically, we downloaded 20 audio samples each of humpback whales, bowhead whales, and fin whales to train a model for recognizing and classifying whale species based on their unique vocal characteristics.
+
+Table of Contents
+1. Project Overview
+2. Data Sources
+3. Setup Instructions
+4. Project Structure
+5. Methods
+6. Results
+7. Future Work
+8. Acknowledgments
+
 ---
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.16.4
-  kernelspec:
-    display_name: Python 3 (ipykernel)
-    language: python
-    name: python3
----
 
-<!-- #region -->
-# README: 鲸鱼声音分析与分类项目
+Project Overview
 
-## 项目概述
-本项目旨在通过分析鲸鱼声音的数据来识别和分类不同的鲸鱼物种。我们使用特征提取、聚类分析和监督学习等机器学习技术，探索并分类鲸鱼的声音模式。本项目的目标是构建一个模型，可以根据鲸鱼的声音特征，对新的音频数据进行物种识别。
+This project began with an in-depth analysis of a single whale sound sample to identify key features, frequency distribution, and descriptive statistics. Using these initial findings, we extended the project to a broader analysis. We randomly sampled 20 audio files each of humpback, bowhead, and fin whales from the Watkins Marine Mammal Sound Database. These samples were selected to provide a diverse dataset for training a whale sound classification model.
 
-## 数据集来源
-- **数据集来源**：Watkins Marine Mammal Sound Database
-- **数据内容**：数据集包含蓝鲸（Blue Whale）、座头鲸（Humpback Whale）、北太平洋露脊鲸（North Pacific Right Whale）、鳍鲸（Fin Whale）等多种鲸鱼物种的音频记录，每条音频包含鲸鱼的特定叫声和频率信息。
-- **文件类型**：WAV 音频文件，每种鲸鱼物种包含多条音频记录
-- **采样率**：将所有音频文件加载为 22050 Hz，以确保特征提取的一致性。
+Our aim is to explore species-specific vocal patterns and develop a machine learning model capable of recognizing and classifying different whale species. Additionally, the project holds promise for creating accessibility solutions, such as converting whale sounds into tactile feedback for the hearing-impaired, especially using low-frequency audio characteristics.
 
-## 项目文件
-- **主 Notebook 文件**：`whale_sound_classification.ipynb`，包含主要的代码和分析步骤。
-- **数据文件**：`whale_sounds.zip`，包含所有鲸鱼音频文件，解压后确保音频文件路径正确链接至 Notebook。
-- **模型与分析文件**：Notebook 内的代码用于音频文件的加载、特征提取、聚类、分类和预测。
+Data Sources
 
-## 运行说明
-1. **依赖安装**：
-   运行本 Notebook 需要安装以下 Python 库：
-   ```bash
-   pip install librosa numpy matplotlib sklearn plotly
+The primary data comes from the Watkins Marine Mammal Sound Database. The database includes various marine mammals' vocalizations, including whales, dolphins, and seals. For this project, we focus on:
+- Humpback Whales
+- Bowhead Whales
+- Fin Whales
 
-## 数据路径设置
-将 `audio.zip` 解压到项目根目录，并确保 Notebook 中音频文件路径正确指向解压后的文件。
+We randomly selected 20 recordings for each species, specifically chosen for their low-frequency characteristics suitable for tactile feedback applications and vocalization analysis.
 
-## Notebook 运行步骤
+Setup Instructions
 
-1. 打开并运行 `Assignment2.ipynb` 文件。
-2. 按照 Notebook 中的步骤，加载音频文件、提取特征、进行聚类和分类分析。
-3. 根据代码中的提示，调整聚类和分类参数以优化模型的性能。
-
-## 分析流程
-
-### 1. 数据理解
-首先加载并初步检查音频数据，确保数据的结构和内容符合分析需求。
-
-### 2. 特征提取与描述性统计
-- 使用 `librosa` 提取音频的 **MFCC 特征** 和 **频谱特征**，并计算描述性统计（包括均值、标准差、最小值和最大值）。
-- 描述性统计帮助我们初步了解音频特征的分布，便于后续的聚类和分类分析。
-
-### 3. 聚类分析
-- **KMeans 聚类**：对音频特征进行聚类，生成伪标签以帮助识别鲸鱼声音模式。
-- **异常值检测**：利用聚类结果对异常值进行检测，并清理异常数据以提高分类模型的准确性。
-
-### 4. 推断性统计
-- **监督学习分类**：使用聚类生成的伪标签作为目标变量，训练随机森林分类模型。
-- **交叉验证**：对模型进行评估，并利用清理后的数据进行分类模型的训练和验证。
-- **新数据预测**：使用训练好的模型预测新音频数据的物种类别。
-
-## 结果与讨论
-
-- **聚类结果**：通过聚类分析，不同的鲸鱼音频可以分为多个模式，这些模式可能对应于不同的物种。
-- **分类结果**：在交叉验证的评估中，清理后的数据集表现出较高的准确率，表明模型在伪标签生成和分类任务上具有良好的预测能力。
+Prerequisites:
+Ensure you have Python 3.7+ and the following libraries installed:
+	pip install librosa matplotlib numpy pandas joblib scikit-learn
 
 
-### 目录结构
-
-```plaintext
-whale_sound_classification/
-├── Assignment2.ipynb   # 主代码文件
-├── audio.zip                   # 音频文件压缩包
-└── README.md                          # 本说明文件
-
-<!-- #endregion -->
-
-# README: Whale Sound Analysis and Classification Project
-
-## Project Overview
-This project aims to analyze whale sound data to identify and classify different whale species. By using feature extraction, clustering analysis, and supervised learning techniques, we explore and categorize various whale sound patterns. The goal is to build a model capable of recognizing whale species from new audio data based on sound features.
-
-## Dataset Source
-- **Source**: Watkins Marine Mammal Sound Database
-- **Dataset Content**: The dataset includes audio recordings of various whale species such as Blue Whale, Humpback Whale, North Pacific Right Whale, and Fin Whale. Each audio file captures specific whale vocalizations and frequency information.
-- **File Type**: WAV audio files, with multiple recordings per whale species.
-- **Sampling Rate**: All audio files are loaded at 22050 Hz to ensure consistent feature extraction.
-
-## Project Files
-- **Main Notebook**: `whale_sound_classification.ipynb`, containing the primary code and analysis steps.
-- **Data Files**: `whale_sounds.zip`, includes all whale audio files. Unzip and ensure the file paths link correctly to the Notebook.
-- **Model and Analysis Files**: Code within the Notebook is used to load audio files, extract features, perform clustering, classify, and predict.
-
-## Instructions for Running
-1. **Dependencies**:
-   Install the required Python libraries by running:
-   ```bash
-   pip install librosa numpy matplotlib sklearn plotly
-
-## Data Path Setup
-Unzip `audio.zip` in the project root directory, and ensure the audio file paths in the Notebook point to the unzipped files.
-
-## Steps for Running the Notebook
-1. Open and run the `Assignment2.ipynb` file.
-2. Follow the steps in the Notebook to load audio files, extract features, and conduct clustering and classification analyses.
-3. Adjust clustering and classification parameters as suggested in the code to optimize model performance.
-
-## Analysis Workflow
-
-### 1. Data Understanding
-Load and initially inspect the audio data to ensure its structure and content align with the analysis requirements.
-
-### 2. Feature Extraction and Descriptive Statistics
-- Extract **MFCC features** and **spectral features** from the audio using `librosa`, and compute descriptive statistics (mean, standard deviation, minimum, and maximum).
-- Descriptive statistics help provide a preliminary understanding of the distribution of audio features, which facilitates clustering and classification.
-
-### 3. Clustering Analysis
-- **KMeans Clustering**: Perform clustering on the audio features to generate pseudo-labels that help identify whale sound patterns.
-- **Outlier Detection**: Detect outliers based on clustering results and remove these to enhance the accuracy of the classification model.
-
-### 4. Inferential Statistics
-- **Supervised Learning Classification**: Use the pseudo-labels generated from clustering as target variables to train a Random Forest classification model.
-- **Cross-Validation**: Evaluate the model and use the cleaned data for training and validation.
-- **New Data Prediction**: Use the trained model to predict the species label of new audio data.
-
-## Results and Discussion
-
-- **Clustering Results**: Clustering analysis indicates that whale sounds can be grouped into several patterns, potentially corresponding to different species.
-- **Classification Results**: In cross-validation, the cleaned dataset achieved high accuracy, suggesting that the model effectively predicts species based on pseudo-labels and classification tasks.
-
-## Directory Structure
-
-```plaintext
-whale_sound_classification/
-├── Assignment2.ipynb   # Main code file
-├── audio.zip                   # Audio files zip package
-└── README.md                          # Project documentation file
-
-
-```python
-
+Data Preparation:
+- Download the whale sound data as whale_sounds.zip and unzip it into the audio/ directory.
+- Ensure your directory structure matches:
 ```
----
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.16.4
-  kernelspec:
-    display_name: Python 3 (ipykernel)
-    language: python
-    name: python3
----
-
-<!-- #region -->
-# README: 鲸鱼声音分析与分类项目
-
-## 项目概述
-本项目旨在通过分析鲸鱼声音的数据来识别和分类不同的鲸鱼物种。我们使用特征提取、聚类分析和监督学习等机器学习技术，探索并分类鲸鱼的声音模式。本项目的目标是构建一个模型，可以根据鲸鱼的声音特征，对新的音频数据进行物种识别。
-
-## 数据集来源
-- **数据集来源**：Watkins Marine Mammal Sound Database
-- **数据内容**：数据集包含蓝鲸（Blue Whale）、座头鲸（Humpback Whale）、北太平洋露脊鲸（North Pacific Right Whale）、鳍鲸（Fin Whale）等多种鲸鱼物种的音频记录，每条音频包含鲸鱼的特定叫声和频率信息。
-- **文件类型**：WAV 音频文件，每种鲸鱼物种包含多条音频记录
-- **采样率**：将所有音频文件加载为 22050 Hz，以确保特征提取的一致性。
-
-## 项目文件
-- **主 Notebook 文件**：`whale_sound_classification.ipynb`，包含主要的代码和分析步骤。
-- **数据文件**：`whale_sounds.zip`，包含所有鲸鱼音频文件，解压后确保音频文件路径正确链接至 Notebook。
-- **模型与分析文件**：Notebook 内的代码用于音频文件的加载、特征提取、聚类、分类和预测。
-
-## 运行说明
-1. **依赖安装**：
-   运行本 Notebook 需要安装以下 Python 库：
-   ```bash
-   pip install librosa numpy matplotlib sklearn plotly
-
-## 数据路径设置
-将 `audio.zip` 解压到项目根目录，并确保 Notebook 中音频文件路径正确指向解压后的文件。
-
-## Notebook 运行步骤
-
-1. 打开并运行 `Assignment2.ipynb` 文件。
-2. 按照 Notebook 中的步骤，加载音频文件、提取特征、进行聚类和分类分析。
-3. 根据代码中的提示，调整聚类和分类参数以优化模型的性能。
-
-## 分析流程
-
-### 1. 数据理解
-首先加载并初步检查音频数据，确保数据的结构和内容符合分析需求。
-
-### 2. 特征提取与描述性统计
-- 使用 `librosa` 提取音频的 **MFCC 特征** 和 **频谱特征**，并计算描述性统计（包括均值、标准差、最小值和最大值）。
-- 描述性统计帮助我们初步了解音频特征的分布，便于后续的聚类和分类分析。
-
-### 3. 聚类分析
-- **KMeans 聚类**：对音频特征进行聚类，生成伪标签以帮助识别鲸鱼声音模式。
-- **异常值检测**：利用聚类结果对异常值进行检测，并清理异常数据以提高分类模型的准确性。
-
-### 4. 推断性统计
-- **监督学习分类**：使用聚类生成的伪标签作为目标变量，训练随机森林分类模型。
-- **交叉验证**：对模型进行评估，并利用清理后的数据进行分类模型的训练和验证。
-- **新数据预测**：使用训练好的模型预测新音频数据的物种类别。
-
-## 结果与讨论
-
-- **聚类结果**：通过聚类分析，不同的鲸鱼音频可以分为多个模式，这些模式可能对应于不同的物种。
-- **分类结果**：在交叉验证的评估中，清理后的数据集表现出较高的准确率，表明模型在伪标签生成和分类任务上具有良好的预测能力。
-
-
-### 目录结构
-
-```plaintext
-whale_sound_classification/
-├── Assignment2.ipynb   # 主代码文件
-├── audio.zip                   # 音频文件压缩包
-└── README.md                          # 本说明文件
-
-<!-- #endregion -->
-
-# README: Whale Sound Analysis and Classification Project
-
-## Project Overview
-This project aims to analyze whale sound data to identify and classify different whale species. By using feature extraction, clustering analysis, and supervised learning techniques, we explore and categorize various whale sound patterns. The goal is to build a model capable of recognizing whale species from new audio data based on sound features.
-
-## Dataset Source
-- **Source**: Watkins Marine Mammal Sound Database
-- **Dataset Content**: The dataset includes audio recordings of various whale species such as Blue Whale, Humpback Whale, North Pacific Right Whale, and Fin Whale. Each audio file captures specific whale vocalizations and frequency information.
-- **File Type**: WAV audio files, with multiple recordings per whale species.
-- **Sampling Rate**: All audio files are loaded at 22050 Hz to ensure consistent feature extraction.
-
-## Project Files
-- **Main Notebook**: `whale_sound_classification.ipynb`, containing the primary code and analysis steps.
-- **Data Files**: `whale_sounds.zip`, includes all whale audio files. Unzip and ensure the file paths link correctly to the Notebook.
-- **Model and Analysis Files**: Code within the Notebook is used to load audio files, extract features, perform clustering, classify, and predict.
-
-## Instructions for Running
-1. **Dependencies**:
-   Install the required Python libraries by running:
-   ```bash
-   pip install librosa numpy matplotlib sklearn plotly
-
-## Data Path Setup
-Unzip `audio.zip` in the project root directory, and ensure the audio file paths in the Notebook point to the unzipped files.
-
-## Steps for Running the Notebook
-1. Open and run the `Assignment2.ipynb` file.
-2. Follow the steps in the Notebook to load audio files, extract features, and conduct clustering and classification analyses.
-3. Adjust clustering and classification parameters as suggested in the code to optimize model performance.
-
-## Analysis Workflow
-
-### 1. Data Understanding
-Load and initially inspect the audio data to ensure its structure and content align with the analysis requirements.
-
-### 2. Feature Extraction and Descriptive Statistics
-- Extract **MFCC features** and **spectral features** from the audio using `librosa`, and compute descriptive statistics (mean, standard deviation, minimum, and maximum).
-- Descriptive statistics help provide a preliminary understanding of the distribution of audio features, which facilitates clustering and classification.
-
-### 3. Clustering Analysis
-- **KMeans Clustering**: Perform clustering on the audio features to generate pseudo-labels that help identify whale sound patterns.
-- **Outlier Detection**: Detect outliers based on clustering results and remove these to enhance the accuracy of the classification model.
-
-### 4. Inferential Statistics
-- **Supervised Learning Classification**: Use the pseudo-labels generated from clustering as target variables to train a Random Forest classification model.
-- **Cross-Validation**: Evaluate the model and use the cleaned data for training and validation.
-- **New Data Prediction**: Use the trained model to predict the species label of new audio data.
-
-## Results and Discussion
-
-- **Clustering Results**: Clustering analysis indicates that whale sounds can be grouped into several patterns, potentially corresponding to different species.
-- **Classification Results**: In cross-validation, the cleaned dataset achieved high accuracy, suggesting that the model effectively predicts species based on pseudo-labels and classification tasks.
-
-## Directory Structure
-
-```plaintext
-whale_sound_classification/
-├── Assignment2.ipynb   # Main code file
-├── audio.zip                   # Audio files zip package
-└── README.md                          # Project documentation file
-
-
-```python
-
+whale-sound-classification/
+├── audio/
+│   └── [species]/
+│       └── [audio files]
+├── new_audio_samples/
+├── whale_features.csv
+└── README.md
 ```
+Running the Notebook:
+- Open and run the provided Jupyter notebook to preprocess the audio data, extract features, and train the classification model.
+- The saved model (trained_rf_model.joblib) and scaler (scaler.joblib) can be used to test new samples in the new_audio_samples/ folder.
+
+Project Structure
+```
+whale-sound-classification/
+├── audio/                   # Contains unzipped whale audio data by species
+├── new_audio_samples/       # For testing the model on unseen audio samples
+├── whale_features.csv       # Preprocessed features of whale sounds
+├── README.md                # Project description and instructions
+└── whale_classification.ipynb # Main project notebook
+```
+Methods
+
+1. Initial Descriptive Analysis:
+   - We began by analyzing a single whale audio file, performing descriptive statistics and visualization to understand its frequency distribution, MFCC characteristics, and amplitude variations.
+
+2. Data Collection and Preprocessing:
+   - Following initial analysis, we randomly sampled 20 audio recordings each of humpback whales, bowhead whales, and fin whales.
+   - Applied preprocessing steps like silence removal and resampling for standardized audio quality.
+
+3. Feature Extraction:
+   - Extracted MFCC (Mel-Frequency Cepstral Coefficients) features from each audio sample, capturing the unique spectral characteristics of each species.
+
+4. Clustering and Classification:
+   - Used KMeans clustering to identify patterns within the audio features, grouping samples based on spectral similarities.
+   - Trained a Random Forest classifier on the dataset to predict species based on MFCC features.
+
+Results
+
+- Single Audio Sample Analysis: Initial descriptive analysis provided a baseline understanding of whale sound features, which guided feature selection and preprocessing methods.
+- Clustering: Unsupervised clustering showed distinct groupings corresponding to species, validating that each species has unique vocalization patterns.
+- Classification Accuracy: The Random Forest classifier achieved high accuracy on the test data, demonstrating that the model generalizes well for new samples.
+- Visualization: Plots of MFCC means and standard deviations highlighted significant inter-species differences in vocal characteristics, especially in low-frequency ranges.
+
+Future Work
+
+1. Accessibility Applications: This work can inform the design of tactile feedback systems for hearing-impaired users, allowing them to "feel" whale sounds through low-frequency vibrations.
+2. Extended Species Coverage: Further research could involve additional whale species or incorporate environmental data to improve model robustness.
+3. Advanced Modeling Techniques: Exploring deep learning models (e.g., CNNs) could capture more complex patterns in whale sounds.
+
+Acknowledgments
+
+Thanks to the Watkins Marine Mammal Sound Database for the valuable audio data, and to Victoria Evans for her guidance on focusing on low-frequency whale species. This project also aligns with the University of Edinburgh’s guidelines on ethical AI use.
